@@ -1,5 +1,6 @@
 @hybrid_cache_HostAddress = http://localhost:5257
 
+###
 GET {{hybrid_cache_HostAddress}}/weatherforecast/
 Accept: application/json
 
@@ -7,6 +8,9 @@ Accept: application/json
 GET {{hybrid_cache_HostAddress}}/getcurrenttime HTTP/1.1
 
 ###
-GET {{hybrid_cache_HostAddress}}/removecurrenttime HTTP/1.1
+POST {{hybrid_cache_HostAddress}}/removecurrenttime HTTP/1.1
+
+###
+GET {{hybrid_cache_HostAddress}}/someinfo HTTP/1.1
 
 ###

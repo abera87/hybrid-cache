@@ -20,7 +20,7 @@ builder.Services.AddHybridCache(options =>
 
 builder.Services.AddStackExchangeRedisCache(options =>
 {
-    options.Configuration = "127.0.0.1:6379";
+    options.Configuration = builder.Configuration.GetConnectionString("RedisConnectionString");
 });
 
 builder.Services.AddScoped(typeof(SomeService));
@@ -70,7 +70,7 @@ app.MapGet("/getcurrenttime",  async (HybridCache cache) =>
 })
 .WithName("GetCurrentTime");
 
-app.MapGet("/removecurrenttime",  async (HybridCache cache) =>
+app.MapPost("/removecurrenttime",  async (HybridCache cache) =>
 {
     await cache.RemoveAsync("date");
     return;
@@ -80,9 +80,9 @@ app.MapGet("/removecurrenttime",  async (HybridCache cache) =>
 app.MapGet("/someinfo",  async (SomeService service) =>
 {
     
-var data=await service.GetSomeInfoAsync("ASD",1);
-return data;
-})
+    var data=await service.GetSomeInfoAsync("ASD",1);
+    return data;
+})  
 .WithName("GetSomeInfo");
 
 app.Run();
